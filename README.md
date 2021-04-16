@@ -18,6 +18,5 @@
 
 --------| Dockerfile
 
-|
 
 |------- docker-compose.yml
