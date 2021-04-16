@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  web:
+    build: ./kms-mdt-backend
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn backend.wsgi -b 0.0.0.0:8000"
+    volumes:
+      - ./kms-mdt-backend/:/usr/src/app/
+      - /static:/static
+      - /media:/media
+    expose:
+      - "8000"
+
+  nginx:
+    image: nginx:latest
+    container_name: kms-media
+    ports:
+      - "80:80"
+    volumes:
+      - ./app/:/src
+      - ./config/nginx:/etc/nginx/conf.d
+      - /static:/static
+      - /media:/media
+             
+    depends_on:
+      - web
+
