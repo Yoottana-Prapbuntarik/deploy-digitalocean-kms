@@ -6,11 +6,17 @@
 
 |------- config
 
-|
+--------| requirements.pip
+
+--------| nginx
+
+--------------| <your-web>.conf
+
+
 
 |------- kms-mdt-backend
 
-|--------|----Dockerfile
+--------| Dockerfile
 
 |
 
