@@ -4,6 +4,8 @@ services:
   web:
     build: ./kms-mdt-backend
     command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn backend.wsgi -b 0.0.0.0:8000"
+    depends_on:
+      - db
     volumes:
       - ./kms-mdt-backend/:/usr/src/app/
       - /static:/static
@@ -24,4 +26,11 @@ services:
              
     depends_on:
       - web
-
+  db:
+    image: postgres:latest
+    container_name: ps01
+    
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=kms-media
